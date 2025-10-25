@@ -7,11 +7,12 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-
+import java.util.concurrent.*;
 
 public class TrainData{
 	public static List<Image> trainImages = new CopyOnWriteArrayList<>();
 	static public int PIXEL_SIZE = 192;
+    static private final int cores = Runtime.getRuntime().availableProcessors();
 
 	static public boolean load_training_data(String trainData){
 		try{
@@ -22,18 +23,20 @@ public class TrainData{
                 System.out.println("No training images found in: " + trainData);
                 return false;
             }
-            for(File trainImage: contents){
-                String fullFileName = trainData.concat("/").concat(trainImage.getName());
-            	// convert the train image to gray scale
-                BufferedImage greyTrainImage = get_resized_gray_scale_image(fullFileName);
-                // create new image
-                Image new_image = new Image(fullFileName, greyTrainImage);
-                // get the feature vector for that image
-                double[] features = HOG_Container.get_image_vectors(greyTrainImage);
-                new_image.set_features(features);
-                // add to trainImages
-                trainImages.add(new_image);
+            ExecutorService executor = Executors.newFixedThreadPool(cores);
+            for (File trainImage : contents) {
+                final File currentFile = trainImage;
+                executor.submit(() -> {
+                    String fullFileName = trainData.concat("/").concat(currentFile.getName());
+                    BufferedImage greyTrainImage = get_resized_gray_scale_image(fullFileName);
+                    Image new_image = new Image(fullFileName, greyTrainImage);
+                    double[] features = HOG_Container.get_image_vectors(greyTrainImage);
+                    new_image.set_features(features);
+                    trainImages.add(new_image);
+                });
             }
+            executor.shutdown();
+            executor.awaitTermination(1, TimeUnit.MINUTES);
            	return true;
         }catch(Exception e){
             System.out.println("Error occured in loading training data: " + e.getMessage());
