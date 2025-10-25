@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 
 class HOG_Container{
     static private int cellSize = 8;
-    static private int binSize = 9;
-    static private int blockSize = 2;
+    static private int binSize = 10;
+    static private int blockSize = 4;
     static public int[][][] KERNEL = {
                 {{-1, 0, 1}, 
                  {-2, 0, 2}, 
