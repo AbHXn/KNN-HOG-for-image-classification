@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 
-class Image{
+public class Image{
 	public String name;
 	public BufferedImage img;
 	public double distance;

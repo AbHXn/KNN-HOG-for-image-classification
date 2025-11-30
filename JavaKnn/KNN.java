@@ -5,14 +5,14 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.HashMap;
 
-class KNN{
+public class KNN{
     // trainDir -> folder path for training images
     // targetDir -> folder path for classified images
     // runDir -> folder path of images to be classified
-    // nCount -> neighbor count...
+    // dRate -> neighbhour selection ratio (0-1)
     public String trainDir, targetDir, runDir;
 	public double dRate;
-	KNN(   String trainDir, 
+	public KNN(   String trainDir, 
            String targetDir, 
            String runDir, 
            double dRate)
@@ -65,10 +65,10 @@ class KNN{
             // }
             // get the neighbours
             //ArrayList<String> neighbours = new ArrayList<>();
-            Classifier classifier = new Classifier(this.targetDir);
+            Move classifier = new Move(this.targetDir);
 
             int nCount = (int) (TrainData.trainImages.size() * dRate);
-            nCount = Math.max(1, Math.min(nCount, TrainData.trainImages.size())); // clamp
+            nCount = Math.max(1, Math.min(nCount, TrainData.trainImages.size()));
 
             HashMap<String, Double> classWeights = new HashMap<>();
             double totalWeight = 0.0;

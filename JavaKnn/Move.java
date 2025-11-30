@@ -6,9 +6,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 
-class Classifier{
+class Move{
     private String classFolder;
-    Classifier(String classFolder){
+    Move(String classFolder){
         this.classFolder = classFolder;
     }
     void move(String source, String dest, String imageName){
