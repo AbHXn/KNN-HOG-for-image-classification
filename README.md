@@ -1,6 +1,6 @@
 # KNN Image Classifier
 
-This is a Java-based K-Nearest Neighbors (KNN) image classifier. It classifies test images based on a set of training images and moves the classified images into the appropriate folders.
+This is a Java-based K-Nearest Neighbors (KNN) + Histogram Of Oriented Gradients(HOG) image classifier. It classifies test images based on a set of training images and moves the classified images into the appropriate folders.
 
 ## Folder Structure
 
