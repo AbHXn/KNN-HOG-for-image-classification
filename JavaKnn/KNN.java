@@ -57,14 +57,6 @@ public class KNN{
             TrainData.trainImages.sort((imga, imgb) -> {
                 return Double.compare(imga.distance, imgb.distance); 
             });
-            // System.out.println("Printing the distance in sorted order: ");
-            // for(int x = 0; x < TrainData.trainImages.size(); x++){
-            //     Image current_image = TrainData.trainImages.get(x);
-            //     System.out.println("Image: " + current_image.name);
-            //     System.out.println("distance: " + current_image.distance);
-            // }
-            // get the neighbours
-            //ArrayList<String> neighbours = new ArrayList<>();
             Move classifier = new Move(this.targetDir);
 
             int nCount = (int) (TrainData.trainImages.size() * dRate);
@@ -95,7 +87,6 @@ public class KNN{
                     predictedClass = cls;
                 }
             }
-
             System.out.println("Predicted Class: " + predictedClass);
 
             // extract the folder name from neighbours images name
