@@ -113,7 +113,7 @@ class HOG_Container{
             for(int y = 0; y < W; y++){
                 magnitudes[x][y] = sobelX[x][y] * sobelX[x][y] + sobelY[x][y] * sobelY[x][y];
                 magnitudes[x][y] = Math.sqrt(magnitudes[x][y]);
-                // tan(0) = dy/dy => 0 = tan-1(dy/dy)
+                // tan(0) = dy/dx => 0 = tan-1(dy/dx)
                 angles[x][y] = Math.toDegrees(Math.atan2(sobelY[x][y], sobelX[x][y]));
                 // ensure the angle is between 0 - 180
                 if (angles[x][y] < 0)  angles[x][y] += 180;
